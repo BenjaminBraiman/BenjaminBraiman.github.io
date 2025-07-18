@@ -2,32 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>LaTeX Test Page</title>
+  <title>Math Musings</title>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-  </script>
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: Georgia, serif;
       margin: 40px;
-      background-color: #f8f8f8;
+      max-width: 800px;
+      background-color: #fcfcfc;
+      color: #222;
     }
     h2 {
-      color: #333;
+      margin-top: 40px;
+      color: #444;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+    p {
+      line-height: 1.6;
+    }
+    .meta {
+      font-size: 0.9em;
+      color: #777;
     }
   </style>
 </head>
 <body>
-  <h2>LaTeX Render Test</h2>
-  <p>This is inline math: \( e^{i\pi} + 1 = 0 \)</p>
-  <p>This is display math:</p>
-  
+  <h1>Mathematical Musings</h1>
+  <p class="meta">Reflections, curiosities, and open-ended ideas.</p>
+
+  <h2>Post 1: A Strange Identity from Fourier Land</h2>
+  <p class="meta">July 18, 2025</p>
+  <p>
+    Consider the curious identity:  
+    
 
 \[
-    \int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}
-  \]
+      \sum_{n = -\infty}^{\infty} \frac{1}{1 + (n - x)^2} = \pi \cdot \frac{\sinh(\pi)}{\cosh(\pi) - \cos(2\pi x)}
+    \]
 
+
+    which emerges from applying the Poisson summation formula to a Lorentzian. It’s surprising, tight, and deeply analytic. But why does it smell so much like complex analysis?
+  </p>
+
+  <h2>Post 2: Ergodic Bites</h2>
+  <p class="meta">July 20, 2025</p>
+  <p>
+    In preparing for a course in Markov chains, I encountered a disarmingly simple characterization of ergodicity in terms of total variation convergence. It reminded me of a line from Kac: “A mathematician is a person who does not fear the infinite.” More soon.
+  </p>
 
 </body>
 </html>
