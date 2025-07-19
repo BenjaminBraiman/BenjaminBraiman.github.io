@@ -56,10 +56,8 @@
   <h2>First Post: A "Probabalistic" Proof of the Fundamental Theorem of Algebra</h2>
   <p class="meta">July 18, 2025</p>
   <p>
-    The Fundamental Theorem of Algebra (FTA) famously states that non-constant polynomial \(a_n z^n + \cdots + a_1z + a_0\) where \(a_0,\dots,a_n \in \mathbb{C}\) has exactly \(n\) complex roots, counting multiplicity. There are several proofs of this fact. Most of the simple ones that are taught during undergraduate involve
-    complex analysis in one shape or form. 
-    
-    One such proof (which can even be found on <a href=https://en.wikipedia.org/wiki/Fundamental_theorem_of_algebra#Complex-analytic_proofs> Wikipedia</a>) invokes Liouville's theorem:
+    The Fundamental Theorem of Algebra (FTA) famously states that non-constant polynomial \(a_n z^n + \cdots + a_1z + a_0\) where \(a_0,\dots,a_n \in \mathbb{C}\) has exactly \(n\) complex roots, counting multiplicity. Most simple proofs that are taught during undergraduate involve
+    complex analysis in one shape or form. For example this argument (which can be found on <a href=https://en.wikipedia.org/wiki/Fundamental_theorem_of_algebra#Complex-analytic_proofs> Wikipedia</a>) invokes Liouville's theorem:
 
     <div class="math-block" id="thm: Liouville">
       <div class="label">Theorem 1.1 (Liouville's Theorem)</div>
@@ -68,16 +66,16 @@
       </p>
     </div>
     
-    Assuming Liouville's theorem, FTA follows rather cleanly through a contradiction argument.  If there is a nonconstnat polynomial \(p(z) = a_nz^n + \cdots + a_0\) with no zeros
-    in \(\mathbb C\) (of course, \(a_n \neq 0\)), then \(1/p\) is holomorphic and entire. Since \(|p|\) grows like \(|a_n z^n|\) as \(|z| \to \infty\) we see that \(1/p(z) \to 0\) as \(|z| \to \infty\), 
-    so \(1/p\) is also bounded and thus constant by Liouville's theorem. This is a contradiction, which is resolved by admitting each polynomial \(p\) has a root in \(\mathbb C\). That there are \(n\) such roots counting
-    multiplicity follows now from an easy induction argument involving the division algorithm for polynomials.
+    Assuming Liouville's theorem, FTA follows rather cleanly through a contradiction argument.  If there is a non-constant polynomial \(p(z) = a_nz^n + \cdots + a_0\) with no zeros
+    in \(\mathbb C\) (of course, \(a_n \neq 0\)), then \(1/p\) is holomorphic and entire. Since \(|p(z)|\) grows like \(|a_n z^n|\) for large \(z\), we see that \(1/p(z) \to 0\) as \(|z| \to \infty\).
+    This proves \(1/p\) is bounded and thus constant by Liouville's theorem. This contradiction is resolved by admitting each polynomial \(p\) has a root in \(\mathbb C\). That there are \(n\) such roots counting
+    multiplicity follows now from an easy induction argument involving the polynomial division algorithm.
 
     
     <p>
-      While this proof is disarmingly simple, we have so far assumed Liouville's theorem without proof. It turns out that we can give a probabalistic proof of Liouville's theorem, and hence a "probabalistic" proof of FTA.
+      One idea behind a "probabalistic" proof of the FTA is to somehow use probability to prove Liouville's theorem, from which FTA follows readily. 
 
-      To prevent this article from turning into a textbook, I assume that the reader is familiar with Brownian motion and basic results in stochastic analysis, such as Ito's lemma. (For some basic results, review <a href="https://en.wikipedia.org/wiki/Brownian_motion#Mathematics">this Wikipedia article</a>, or if you have more time, <a href="https://link.springer.com/book/10.1007/978-3-642-14394-6">this textbook on SDE</a> ).
+      To prevent this article from turning into a textbook, I assume that the reader is familiar with Brownian motion and basic results in stochastic analysis, such as Ito&#770's lemma. (For the basics, see <a href="https://en.wikipedia.org/wiki/Brownian_motion#Mathematics">this Wikipedia article</a>, or for the patient, <a href="https://link.springer.com/book/10.1007/978-3-642-14394-6">this textbook on SDE</a> .)
     </p>
 
     <p>
@@ -102,13 +100,23 @@
     <div class="math-block" id="lemma: stopping-time">
       <div class="label">Lemma 1.3</div>
       <p>
-       Suppose that \(B_t\) is a complex Brownian motion started at \(B_0 = z\). For each \(r > 0\), let \(T_r\) be the stopping time \(T_r := \inf\{t \geq 0 : |B_t| = r\}\). Then \(T_r < +\infty\) a.s.
+       Suppose that \(B_t\) is a complex Brownian motion started at \(B_0 = z\). For each \(r > 0\), define a stopping time \(T_r := \inf\{t \geq 0 : |B_t| = r\}\). Then \(T_r < +\infty\) a.s.
       </p>
     </div>
     <details>
       <summary><b>Proof</b></summary>
       <p>
-        Exercise.
+        We can assume that \(r < |z|\). Fix \(R > |z|\) and put \(T = T_R \land T_r\). Note that \(T < \infty\) a.s, since otherwise \(|B_t| \leq R\) for all \(t\geq 0\), which is impossible since
+       \[\mathbb{P}_z[|B_t| \leq R\text{ for all }t \geq 0] \leq \lim_{t \to \infty}\frac{1}{2\pi t}\int_{|z| \leq R}\exp\left(-\frac{|x - z|^2}{2t}\right)\, dx = 0.\] 
+        
+        Since \(\log|B_{T \land t}|\) is a martingale, 
+        \[\mathbb E_z[\log|B_{T \land t}|] = \log|z|.\]
+       Using the fact \(|B_{T \land t}| \leq R\) for all \(t \geq 0\), dominated convergence yields
+       \[\lim_{t \to \infty}\mathbb E_z[\log|B_{T \land t}|] = \mathbb E_z[\log|B_T|] =  \mathbb P_z[T_R < T_r]\log R + \mathbb P_z[T_r < T_R]\log r.\]
+       Since \[ \mathbb{P}_z[T_R \geq t] \leq \frac{1}{2\pi t}\int_{|z| \leq R}\exp\left(-\frac{|x - z|^2}{2t}\right)\, dx,\] 
+       taking \(R \to \infty\) and then \(t \to \infty\) shows that \(T_R \nearrow \infty\) as \(R \to \infty\). So, if \(\mathbb P_z[T_r = \infty] > 0\), then
+      \[\lim_{R \to \infty}\log|z| =  \lim_{R \to \infty} \mathbb P_z[T_R < T_r]\log R + \mathbb P_z[T_r < T_R]\log r = \infty .\] 
+      To avoid contradiction, \(\mathbb P_z[T_r < \infty] = 1\).
       </p>
     </details>
 
@@ -122,7 +130,7 @@
   </p>
 
   <p>
-    With these two simple lemmas, we can prove Liouville's theorem:
+    These two lemmas can prove Liouville's theorem:
     <div class="math-block" id="proof: Liouville proof">
       <div class="label">Proof of Lioville's Theorem</div>
       <p>
@@ -138,12 +146,14 @@
     </div>
 
 
-  Thus we have a "probabalistic" proof of Liouville's theorem. While there is significant stochastic analysis required to fully understand the proof, a closer inspection of this proof actually shows that this method can completely bypass the need for Cauchy's integral formula 
-  to prove FTA. While Cauchy's formula is typically used to prove holomorphic functions are \(C^\infty\), thus justifying the application of Ito's lemma in <a href="lemma: harmonic-martingale">Lemma 1.2</a>, for the motive of proving FTA this can actually be assumed without proof since polynomials are trivially \(C^\infty\). 
+  Thus we have a "probabalistic" proof of Liouville's theorem. A closer inspection of the argument actually shows we can bypass the need to prove Cauchy's integral formula 
+  before FTA, which is unusual among complex analysis proofs. While Cauchy's formula is often used to prove holomorphic functions are \(C^\infty\) (justifying the application of Ito&#770's lemma in <a href="lemma: harmonic-martingale">Lemma 1.2</a>), for the purpose of proving FTA we do not need to prove this since polynomials are trivially \(C^\infty\). 
   </p>
 
   <p>
-    As a further application of this method, can you prove the maximum modulus principle using stochastic analysis? Or can you prove Liouville's theorem for a holomorphic function of several complex variables using this argument?
+    Clearly, this approach is overkill, since formalizing the stochastic analysis requires functional analysis and measure theory. Regardless, I found it interesting revisit this classic theorem with probabalistic tools.
+    
+    As a parting exercise, can you prove the maximum modulus principle using stochastic analysis? Can this proof give us Liouville's theorem for a holomorphic function of several complex variables?
   </p>
 <!--   <h2>Post 2: Ergodic Bites</h2>
   <p class="meta">July 20, 2025</p>
