@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta name="robots" content="nosnippet">
 <head>
   <meta charset="UTF-8">
   <title>Math Musings</title>
@@ -27,31 +28,128 @@
       font-size: 0.9em;
       color: #777;
     }
+
+    .math-block {
+      border-left: 4px solid #467fcf;
+      padding: 10px 15px;
+      margin: 20px 0;
+      background-color: #f3f7ff;
+      font-family: serif;
+    }
+
+    .math-block .label {
+      font-weight: bold;
+      color: #235;
+      margin-bottom: 5px;
+    }
+
+    .math-block p {
+      margin: 0;
+    }
+
   </style>
 </head>
 <body>
-  <h1>Mathematical Musings</h1>
-  <p class="meta">Reflections, curiosities, and open-ended ideas.</p>
+  <h1>Mathematical Miscellany.</h1>
+  <p class="meta">Whatever I find interesting at the moment.</p>
 
-  <h2>Post 1: A Strange Identity from Fourier Land</h2>
+  <h2>First Post: A "Probabalistic" Proof of the Fundamental Theorem of Algebra</h2>
   <p class="meta">July 18, 2025</p>
   <p>
-    Consider the curious identity:  
+    The Fundamental Theorem of Algebra (FTA) famously states that non-constant polynomial \(a_n z^n + \cdots + a_1z + a_0\) where \(a_0,\dots,a_n \in \mathbb{C}\) has exactly \(n\) complex roots, counting multiplicity. There are several proofs of this fact. Most of the simple ones that are taught during undergraduate involve
+    complex analysis in one shape or form. 
+    
+    One such proof (which can even be found on <a href=https://en.wikipedia.org/wiki/Fundamental_theorem_of_algebra#Complex-analytic_proofs> Wikipedia</a>) invokes Liouville's theorem:
+
+    <div class="math-block" id="thm: Liouville">
+      <div class="label">Theorem 1.1 (Liouville's Theorem)</div>
+      <p>
+       If \(f : \mathbb C \to \mathbb C\) is a bounded entire function, then \(f\) is constant.
+      </p>
+    </div>
+    
+    Assuming Liouville's theorem, FTA follows rather cleanly through a contradiction argument.  If there is a nonconstnat polynomial \(p(z) = a_nz^n + \cdots + a_0\) with no zeros
+    in \(\mathbb C\) (of course, \(a_n \neq 0\)), then \(1/p\) is holomorphic and entire. Since \(|p|\) grows like \(|a_n z^n|\) as \(|z| \to \infty\) we see that \(1/p(z) \to 0\) as \(|z| \to \infty\), 
+    so \(1/p\) is also bounded and thus constant by Liouville's theorem. This is a contradiction, which is resolved by admitting each polynomial \(p\) has a root in \(\mathbb C\). That there are \(n\) such roots counting
+    multiplicity follows now from an easy induction argument involving the division algorithm for polynomials.
+
+    
+    <p>
+      While this proof is disarmingly simple, we have so far assumed Liouville's theorem without proof. It turns out that we can give a probabalistic proof of Liouville's theorem, and hence a "probabalistic" proof of FTA.
+
+      To prevent this article from turning into a textbook, I assume that the reader is familiar with Brownian motion and basic results in stochastic analysis, such as Ito's lemma. (For some basic results, review <a href="https://en.wikipedia.org/wiki/Brownian_motion#Mathematics">this Wikipedia article</a>, or if you have more time, <a href="https://link.springer.com/book/10.1007/978-3-642-14394-6">this textbook on SDE</a> ).
+    </p>
+
+    <p>
+      The key to this argument are the following two lemmas, both of which are essentially standard:
+    </p>
+
+    <div class="math-block" id="lemma: harmonic-martingale">
+      <div class="label">Lemma 1.2</div>
+      <p>
+       Suppose that \(f : \mathbb C \to \mathbb C\) is a holomorphic function. If \(B_t\) is a standard Brownian motion in \(\mathbb C\), then \(f(B_t)\) is a martingale.
+      </p>
+    </div>
+    <details>
+      <summary><b>Proof</b></summary>
+      <p>
+        Applying Ito's lemma to both the real and imaginary parts of \(f\) and using the fact both functions are harmonic, we see
+    \[f(B_t) = f(B_0) + \int_0^t \nabla f(B_s)\cdot dB_s,\] 
+    where the gradient is applied component wise the the real and imaginary parts of \(f\), which are viewed as functions on \(\mathbb R^2\). Since the Ito integral is a martingale, the conclusion follows.
+      </p>
+    </details>
+
+    <div class="math-block" id="lemma: stopping-time">
+      <div class="label">Lemma 1.3</div>
+      <p>
+       Suppose that \(B_t\) is a complex Brownian motion started at \(B_0 = z\). For each \(r > 0\), let \(T_r\) be the stopping time \(T_r := \inf\{t \geq 0 : |B_t| = r\}\). Then \(T_r < +\infty\) a.s.
+      </p>
+    </div>
+    <details>
+      <summary><b>Proof</b></summary>
+      <p>
+        Exercise.
+      </p>
+    </details>
+
     
 
-\[
-      \sum_{n = -\infty}^{\infty} \frac{1}{1 + (n - x)^2} = \pi \cdot \frac{\sinh(\pi)}{\cosh(\pi) - \cos(2\pi x)}
-    \]
-
-
-    which emerges from applying the Poisson summation formula to a Lorentzian. It’s surprising, tight, and deeply analytic. But why does it smell so much like complex analysis?
+    
+    <!-- Since the function \(z\mapsto \log|z|\) is harmonic on \(\{z \neq 0\}\), the proof of <a href="#lemma: harmonic-martingale">Lemma 1.2</a> shows that \(\log|B_t|\) is a martingale. Fix \(R > r\) and let \(T = T_R \land T_r\). Since \(\log|B_{T\land t}|\) is also a martingale,
+    \[\mathbb{E}_z[\log|B_{T \land t}|] = \log |f(z)|.\]
+    On the other hand,
+   \[\mathbb{E}_z[\log|B_{T \land t}|] = \]  -->
   </p>
 
-  <h2>Post 2: Ergodic Bites</h2>
+  <p>
+    With these two simple lemmas, we can prove Liouville's theorem:
+    <div class="math-block" id="proof: Liouville proof">
+      <div class="label">Proof of Lioville's Theorem</div>
+      <p>
+        Suppose that \(f\) is a bounded entire function. We can assume that \(f(0) = 0\). Let \(M > 0\) be chosen so that \(|f(z)| \leq M\) for all \(z\in \mathbb C\).
+
+
+        Let \(B_t\) be a standard Brownian motion started at a point \(z\neq 0\). Since \(f\) is an entire function, it holds \(f(B_t)\) is a complex martingale. Fix \(\epsilon > 0\), and let \(\delta > 0\) be small enough that \(|f(z)| \leq \epsilon\) if \(|z| \leq \delta\). By shrinking \(\delta\) if necessary, we can assume \(\delta < |z|\). Let \(T_\delta\) be as in Lemma <a href="lemma: stopping-time">1.3</a>. Then \(f(B_{T_\delta \land t})\) is a martingale. We know that \(T_\delta < \infty\) a.s. Since \(f(B_{T_\delta \land t})\) is uniformly bounded and continuous as a function of \(t\), we can apply dominated convergence to get
+        \[\mathbb{E}_z[f(B_{T_\delta})] = \lim_{t \to \infty}\mathbb{E}_z[f(B_{T_\delta \land t})] = f(z).\]
+        However, since \(|B_{T_\delta}| \leq \delta\), we see that \(|f(B_{T_\delta})| \leq \epsilon\), so
+        \[|f(z)| \leq \mathbb{E}_z[|f(B_{T_\delta})|] \leq \epsilon.\]
+        Since \(\epsilon > 0\) was arbitrary, it follows \(f(z) = 0\) for all \(z\in \mathbb C\), and we are done.
+      </p>
+    </div>
+
+
+  Thus we have a "probabalistic" proof of Liouville's theorem. While there is significant stochastic analysis required to fully understand the proof, a closer inspection of this proof actually shows that this method can completely bypass the need for Cauchy's integral formula 
+  to prove FTA. While Cauchy's formula is typically used to prove holomorphic functions are \(C^\infty\), thus justifying the application of Ito's lemma in <a href="lemma: harmonic-martingale">Lemma 1.2</a>, for the motive of proving FTA this can actually be assumed without proof since polynomials are trivially \(C^\infty\). 
+  </p>
+
+  <p>
+    As a further application of this method, can you prove the maximum modulus principle using stochastic analysis? Or can you prove Liouville's theorem for a holomorphic function of several complex variables using this argument?
+  </p>
+<!--   <h2>Post 2: Ergodic Bites</h2>
   <p class="meta">July 20, 2025</p>
   <p>
     In preparing for a course in Markov chains, I encountered a disarmingly simple characterization of ergodicity in terms of total variation convergence. It reminded me of a line from Kac: “A mathematician is a person who does not fear the infinite.” More soon.
-  </p>
+  </p> -->
 
 </body>
 </html>
