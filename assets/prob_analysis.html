@@ -3,7 +3,7 @@
 <meta name="robots" content="nosnippet">
 <head>
   <meta charset="UTF-8">
-  <title>Math Musings</title>
+  <title>>Mathematical Miscellany</title>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -132,7 +132,7 @@
   <p>
     These two lemmas can prove Liouville's theorem:
     <div class="math-block" id="proof: Liouville proof">
-      <div class="label">Proof of Lioville's Theorem</div>
+      <div class="label">Proof of Liouville's Theorem</div>
       <p>
         Suppose that \(f\) is a bounded entire function. We can assume that \(f(0) = 0\). Let \(M > 0\) be chosen so that \(|f(z)| \leq M\) for all \(z\in \mathbb C\).
 
@@ -152,8 +152,17 @@
 
   <p>
     Clearly, this approach is overkill, since formalizing the stochastic analysis requires functional analysis and measure theory. Regardless, I found it interesting revisit this classic theorem with probabalistic tools.
-    
-    As a parting exercise, can you prove the maximum modulus principle using stochastic analysis? Can this proof give us Liouville's theorem for a holomorphic function of several complex variables?
+    Here are a few parting exercises:
+    <ul>
+      <li><b>1</b>. Consider the following simplification of Liouville's theorem: Let \(f : \mathbb{Z}^2 \to \mathbb R\) be a function such that 
+        \[
+          f(m,n) = \frac{f(n+1,m) + f(n,m+1) + f(n,m-1) + f(n-1,m)}{4}
+        \] 
+      for all \(m,n\). Show that \(f\) is bounded iff it is constant. (Hint: Let \(S_k\) be a simple random walk in \(\mathbb Z^2\) started at \((m,n)\). Show \(f(S_k)\) is a martingale.)</li>
+      <li><b>2</b>. Use stochastic analysis to prove the maximum modulus principle. If you are unfamiliar with stochastic analysis, show that if \(S \subset \mathbb Z^2\), then \(f\) achieves its maximum on \(S\) on the boundary of \(S\). Here, the boundary of \(S\) is defined as the set of points in \((n,m) \in S\) such that at least one of the points \((n+1,m), (n,m+1), (n-1,m),(n,m-1)\) are not in \(S\).
+      </li>
+      <li><b>3</b>. Can this method be used to prove Liouville's theorem for functions of several complex variables?</li>
+    </ul> 
   </p>
 <!--   <h2>Post 2: Ergodic Bites</h2>
   <p class="meta">July 20, 2025</p>
